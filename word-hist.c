@@ -13,10 +13,9 @@ void find_max_word_len() {
             maxlen = list_of_wordlen[i];
         }
     }
-    printf("Number of words with maximum length: %d\n", maxlen);
 }
 
-void count_words(char *buf) {
+void collect_words_from_entered_line(char *buf) {
     int i=0;
     int wordlen = 0;
     printf("\n Entered line is: %s", buf);
@@ -27,9 +26,6 @@ void count_words(char *buf) {
         } else if(inword == 1) {
             inword = 0;
             list_of_wordlen[nwords] = wordlen;
-            // if (list_of_wordlen[nwords] > maxlen) {
-            //     maxlen = list_of_wordlen[nwords];
-            // }
             find_max_word_len();
             wordlen = 0;
             nwords++;
@@ -38,9 +34,6 @@ void count_words(char *buf) {
     }
     if(inword == 1) {
         list_of_wordlen[nwords] = wordlen;
-        // if (list_of_wordlen[nwords] > maxlen) {
-        //     maxlen = list_of_wordlen[nwords];
-        // }
         find_max_word_len();
         nwords++;
     }
@@ -89,25 +82,24 @@ int main() {
         printf("\n2. Vertical Histogram");
         printf("\n3. Both Horizontal & Vertical Histogram\n");
         scanf("%d", &choice);
+        
+        collect_words_from_entered_line(buf);
     
         switch (choice) {
             case 1:
                 printf("\nYou chose option %d: Horizontal Histogram\n", choice);
-                count_words(buf);
                 printf("Total words: %d\n", nwords);
                 printf("Max word length: %d\n", maxlen);
                 print_horizontal_histogram();
                 break;
             case 2:
                 printf("\nYou chose option %d: Vertical Histogram\n", choice);
-                count_words(buf);
                 printf("Total words: %d\n", nwords);
                 printf("Max word length: %d\n", maxlen);
                 print_vertical_histogram();
                 break;
             case 3:
                 printf("\nYou chose option %d: Both Horizontal & Vertical Histogram\n", choice);
-                count_words(buf);
                 printf("Total words: %d\n", nwords);
                 printf("Max word length: %d\n", maxlen);
                 print_both_histograms();
